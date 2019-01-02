@@ -7,37 +7,37 @@ variable "remote_bucket" {
 variable "s3_path" {
   description = "s3 path for .env file"
   type        = "string"
-  default     = "s3://priceflow-staging/postgrest/.env"
+  default     = ""
 }
 
 variable "name" {
   description = "Name to be used on all the resources as identifier"
   type        = "string"
-  default     = "app-staging-postgrest"
+  default     = ""
 }
 
 variable "ssh_user" {
   description = "Default SSH user for this AMI. e.g. `ec2user` for Amazon Linux and `ubuntu` for Ubuntu systems"
   type        = "string"
-  default     = "ubuntu"
+  default     = ""
 }
 
 variable "key_name" {
   description = "Key name"
   type        = "string"
-  default     = "staging"
+  default     = ""
 }
 
 variable "instance_type" {
   description = "Ec2 instance type"
   type        = "string"
-  default     = "t3.small"
+  default     = ""
 }
 
 variable "ami" {
   description = "AMI to use"
   type        = "string"
-  default     = "ami-036f2557c8e4540aa"
+  default     = ""
 }
 
 variable "allowed_cidr_blocks" {
@@ -54,6 +54,6 @@ variable "tags" {
   type        = "map"
 
   default = {
-    Name = "app-staging-postgrest"
+    Name = ""
   }
 }
