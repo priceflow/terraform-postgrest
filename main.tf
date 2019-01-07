@@ -160,7 +160,7 @@ module "route53" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "${module.route53.hosted_zone_id}"
+  zone_id = "${var.hosted_zone_id}"
   name    = "postgrest.${var.domain_name}"
   type    = "A"
   ttl     = "300"
