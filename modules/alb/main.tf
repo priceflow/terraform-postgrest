@@ -1,13 +1,3 @@
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-
-  config {
-    bucket = "${var.remote_bucket}"
-    key    = "vpc/terraform.tfstate"
-    region = "us-west-2"
-  }
-}
-
 resource "aws_security_group" "default" {
   description = "Controls access to the ALB (HTTP/HTTPS)"
   vpc_id      = "${var.vpc_id}"
@@ -89,7 +79,7 @@ resource "aws_lb_target_group" "default" {
   name                 = "${module.default_target_group_label.id}"
   port                 = "80"
   protocol             = "HTTP"
-  vpc_id               = "${data.terraform_remote_state.vpc.vpc_id}"
+  vpc_id               = "${var.vpc_id}"
   target_type          = "ip"
   deregistration_delay = "${var.deregistration_delay}"
 
