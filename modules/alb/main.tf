@@ -89,7 +89,7 @@ resource "aws_lb_target_group" "default" {
   name                 = "${module.default_target_group_label.id}"
   port                 = "80"
   protocol             = "HTTP"
-  vpc_id               = "${data.terraform_remote_state.vpc.id}"
+  vpc_id               = "${data.terraform_remote_state.vpc.vpc_id}"
   target_type          = "ip"
   deregistration_delay = "${var.deregistration_delay}"
 
