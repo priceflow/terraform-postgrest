@@ -188,7 +188,7 @@ resource "aws_lb_target_group_attachment" "default" {
 resource "aws_route53_record" "www" {
   zone_id = "${var.hosted_zone_id}"
   name    = "postgrest.${var.domain_name}"
-  type    = "A"
+  type    = "CNAME"
   ttl     = "300"
   records = ["${module.alb.alb_dns_name}"]
 }
