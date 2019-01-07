@@ -1,29 +1,23 @@
-variable "remote_bucket" {
-  description = "s3 bucket for remote state"
-  type        = "string"
-  default     = "priceflow-staging-terraform-state"
-}
-
 variable "namespace" {
-  type        = "string"
   description = "Namespace, which could be your organization name, e.g. `cp` or `cloudposse`"
+  type        = "string"
 }
 
 variable "stage" {
-  type        = "string"
   description = "Stage, e.g. `prod`, `staging`, `dev`, or `test`"
+  type        = "string"
 }
 
 variable "delimiter" {
+  description = "Delimiter to be used between `namespace`, `name`, `stage` and `attributes`"
   type        = "string"
   default     = "-"
-  description = "Delimiter to be used between `namespace`, `name`, `stage` and `attributes`"
 }
 
 variable "attributes" {
+  description = "Additional attributes, e.g. `1`"
   type        = "list"
   default     = []
-  description = "Additional attributes, e.g. `1`"
 }
 
 variable "name" {
@@ -42,167 +36,167 @@ variable "tags" {
 }
 
 variable "security_group_ids" {
+  description = "A list of additional security group IDs to allow access to ALB"
   type        = "list"
   default     = []
-  description = "A list of additional security group IDs to allow access to ALB"
 }
 
 variable "vpc_id" {
-  type        = "string"
   description = "VPC ID to associate with ALB"
+  type        = "string"
 }
 
 variable "subnet_ids" {
-  type        = "list"
   description = "A list of subnet IDs to associate with ALB"
+  type        = "list"
 }
 
 variable "internal" {
+  description = "A boolean flag to determine whether the ALB should be internal"
   type        = "string"
   default     = "false"
-  description = "A boolean flag to determine whether the ALB should be internal"
 }
 
 variable "http_port" {
+  description = "The port for the HTTP listener"
   type        = "string"
   default     = "80"
-  description = "The port for the HTTP listener"
 }
 
 variable "http_enabled" {
+  description = "A boolean flag to enable/disable HTTP listener"
   type        = "string"
   default     = "true"
-  description = "A boolean flag to enable/disable HTTP listener"
 }
 
 variable "http_ingress_cidr_blocks" {
+  description = "List of CIDR blocks to allow in HTTP security group"
   type        = "list"
   default     = ["0.0.0.0/0"]
-  description = "List of CIDR blocks to allow in HTTP security group"
 }
 
 variable "http_ingress_prefix_list_ids" {
+  description = "List of prefix list IDs for allowing access to HTTP ingress security group"
   type        = "list"
   default     = []
-  description = "List of prefix list IDs for allowing access to HTTP ingress security group"
 }
 
 variable "certificate_arn" {
+  description = "The ARN of the default SSL certificate for HTTPS listener"
   type        = "string"
   default     = ""
-  description = "The ARN of the default SSL certificate for HTTPS listener"
 }
 
 variable "https_port" {
+  description = "The port for the HTTPS listener"
   type        = "string"
   default     = "443"
-  description = "The port for the HTTPS listener"
 }
 
 variable "https_enabled" {
-  type        = "string"
-  default     = "false"
   description = "A boolean flag to enable/disable HTTPS listener"
+  type        = "string"
+  default     = "true"
 }
 
 variable "https_ingress_cidr_blocks" {
+  description = "List of CIDR blocks to allow in HTTPS security group"
   type        = "list"
   default     = ["0.0.0.0/0"]
-  description = "List of CIDR blocks to allow in HTTPS security group"
 }
 
 variable "https_ingress_prefix_list_ids" {
+  description = "List of prefix list IDs for allowing access to HTTPS ingress security group"
   type        = "list"
   default     = []
-  description = "List of prefix list IDs for allowing access to HTTPS ingress security group"
 }
 
 variable "access_logs_prefix" {
+  description = "The S3 bucket prefix"
   type        = "string"
   default     = ""
-  description = "The S3 bucket prefix"
 }
 
 variable "access_logs_enabled" {
+  description = "A boolean flag to enable/disable access_logs"
   type        = "string"
   default     = "true"
-  description = "A boolean flag to enable/disable access_logs"
 }
 
 variable "access_logs_region" {
-  type        = "string"
-  default     = "us-east-1"
   description = "The region for the access_logs S3 bucket"
+  type        = "string"
+  default     = "us-west-2"
 }
 
 variable "cross_zone_load_balancing_enabled" {
+  description = "A boolean flag to enable/disable cross zone load balancing"
   type        = "string"
   default     = "true"
-  description = "A boolean flag to enable/disable cross zone load balancing"
 }
 
 variable "http2_enabled" {
+  description = "A boolean flag to enable/disable HTTP/2"
   type        = "string"
   default     = "true"
-  description = "A boolean flag to enable/disable HTTP/2"
 }
 
 variable "idle_timeout" {
+  description = "The time in seconds that the connection is allowed to be idle"
   type        = "string"
   default     = "60"
-  description = "The time in seconds that the connection is allowed to be idle"
 }
 
 variable "ip_address_type" {
+  description = "The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack`."
   type        = "string"
   default     = "ipv4"
-  description = "The type of IP addresses used by the subnets for your load balancer. The possible values are `ipv4` and `dualstack`."
 }
 
 variable "deletion_protection_enabled" {
+  description = "A boolean flag to enable/disable deletion protection for ALB"
   type        = "string"
   default     = "false"
-  description = "A boolean flag to enable/disable deletion protection for ALB"
 }
 
 variable "deregistration_delay" {
+  description = "The amount of time to wait in seconds before changing the state of a deregistering target to unused"
   type        = "string"
   default     = "15"
-  description = "The amount of time to wait in seconds before changing the state of a deregistering target to unused"
 }
 
 variable "health_check_path" {
+  description = "The destination for the health check request"
   type        = "string"
   default     = "/"
-  description = "The destination for the health check request"
 }
 
 variable "health_check_timeout" {
+  description = "The amount of time to wait in seconds before failing a health check request"
   type        = "string"
   default     = "10"
-  description = "The amount of time to wait in seconds before failing a health check request"
 }
 
 variable "health_check_healthy_threshold" {
+  description = "The number of consecutive health checks successes required before considering an unhealthy target healthy"
   type        = "string"
   default     = "2"
-  description = "The number of consecutive health checks successes required before considering an unhealthy target healthy"
 }
 
 variable "health_check_unhealthy_threshold" {
+  description = "The number of consecutive health check failures required before considering the target unhealthy"
   type        = "string"
   default     = "2"
-  description = "The number of consecutive health check failures required before considering the target unhealthy"
 }
 
 variable "health_check_interval" {
+  description = "The duration in seconds in between health checks"
   type        = "string"
   default     = "15"
-  description = "The duration in seconds in between health checks"
 }
 
 variable "health_check_matcher" {
+  description = "The HTTP response codes to indicate a healthy check"
   type        = "string"
   default     = "200-399"
-  description = "The HTTP response codes to indicate a healthy check"
 }
