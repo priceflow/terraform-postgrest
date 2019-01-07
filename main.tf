@@ -161,6 +161,7 @@ module "alb" {
 
   vpc_id             = "${data.terraform_remote_state.vpc.vpc_id}"
   subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  certificate_arn    = "${module.acm_request_certificate.id}"
   ip_address_type    = "ipv4"
   access_logs_region = "us-west-2"
 }
