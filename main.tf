@@ -139,8 +139,8 @@ resource "aws_security_group" "default" {
 resource "aws_instance" "default" {
   ami           = "${var.ami}"
   instance_type = "${var.instance_type}"
-
-  user_data = "${data.template_file.user_data.rendered}"
+  count         = "${var.num_instances}"
+  user_data     = "${data.template_file.user_data.rendered}"
 
   vpc_security_group_ids = [
     "${compact(concat(list(aws_security_group.default.id), list(data.terraform_remote_state.vpc.default_security_group_id)))}",

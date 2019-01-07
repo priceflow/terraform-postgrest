@@ -59,6 +59,12 @@ variable "domain_name" {
   default     = ""
 }
 
+variable "num_instances" {
+  description = "Number of postgrest instances to create"
+  type        = "string"
+  default     = "1"
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = "map"
