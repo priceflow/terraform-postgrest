@@ -47,6 +47,16 @@ variable "security_group_ids" {
   description = "A list of additional security group IDs to allow access to ALB"
 }
 
+variable "vpc_id" {
+  type        = "string"
+  description = "VPC ID to associate with ALB"
+}
+
+variable "subnet_ids" {
+  type        = "list"
+  description = "A list of subnet IDs to associate with ALB"
+}
+
 variable "internal" {
   type        = "string"
   default     = "false"

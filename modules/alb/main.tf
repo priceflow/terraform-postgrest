@@ -10,7 +10,7 @@ data "terraform_remote_state" "vpc" {
 
 resource "aws_security_group" "default" {
   description = "Controls access to the ALB (HTTP/HTTPS)"
-  vpc_id      = "${data.terraform_remote_state.vpc.id}"
+  vpc_id      = "${var.vpc_id}"
   name        = "${var.name}"
   tags        = "${var.tags}"
 }
@@ -61,7 +61,7 @@ resource "aws_lb" "default" {
   internal                         = "${var.internal}"
   load_balancer_type               = "application"
   security_groups                  = ["${compact(concat(var.security_group_ids, list(aws_security_group.default.id)))}"]
-  subnets                          = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  subnets                          = ["${var.subnet_ids}"]
   enable_cross_zone_load_balancing = "${var.cross_zone_load_balancing_enabled}"
   enable_http2                     = "${var.http2_enabled}"
   idle_timeout                     = "${var.idle_timeout}"
