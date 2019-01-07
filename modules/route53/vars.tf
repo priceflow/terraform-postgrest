@@ -9,7 +9,7 @@ variable "validation_method" {
   default     = "DNS"
 }
 
-variable "process_domain_validation_options" {
+variable "proces_domain_validation_options" {
   description = "Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation"
   type        = "string"
   default     = "true"
@@ -22,11 +22,9 @@ variable "ttl" {
 }
 
 variable "tags" {
-  type = "map"
-
-  default = {
-    Name = ""
-  }
+  description = "Additional tags (e.g. map('BusinessUnit`,`XYZ`)"
+  type        = "map"
+  default     = {}
 }
 
 variable "subject_alternative_names" {

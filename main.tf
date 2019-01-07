@@ -152,11 +152,11 @@ resource "aws_eip" "postgrest_eip" {
 }
 
 module "acm_request_certificate" {
-  source                            = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=master"
-  domain_name                       = "priceflow-staging.com"
+  source                            = "./modules/route53"
+  domain_name                       = "${var.domain_name}"
   process_domain_validation_options = "true"
   ttl                               = "300"
-  subject_alternative_names         = ["*.priceflow-staging.com"]
+  subject_alternative_names         = ["*.${var.domain_name}"]
 }
 
 resource "aws_route53_record" "www" {

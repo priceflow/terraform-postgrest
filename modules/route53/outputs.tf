@@ -5,7 +5,7 @@ output "id" {
 
 output "arn" {
   description = "The ARN of the certificate"
-  value       = "${aws_acm_certificate_validation.default.certificate_arn}"
+  value       = "${aws_acm_certificate.default.arn}"
 }
 
 output "domain_validation_options" {
