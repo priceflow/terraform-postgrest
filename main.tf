@@ -144,3 +144,12 @@ resource "aws_instance" "default" {
   subnet_id                   = "${data.terraform_remote_state.vpc.public_subnets[0]}"
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
+
+resource "aws_eip" "postgrest_eip" {
+  vpc      = true
+  instance = "${aws_instance.default.id}"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
