@@ -15,5 +15,5 @@ output "domain_validation_options" {
 
 output "hosted_zone_id" {
   description = "The hosted zone created"
-  value       = "${aws_route53_zone.default.id}"
+  value       = "${aws_route53_zone.default.*.id}"
 }
