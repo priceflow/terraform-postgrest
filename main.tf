@@ -157,7 +157,7 @@ resource "aws_eip" "postgrest_eip" {
 
 resource "aws_route53_record" "www" {
   zone_id = "${var.hosted_zone_id}"
-  name    = "www.example.com"
+  name    = "${var.subdomain_name}"
   type    = "A"
   ttl     = "300"
   records = ["${aws_eip.postgrest_eip.public_ip}"]

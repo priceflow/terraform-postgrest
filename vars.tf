@@ -54,6 +54,11 @@ variable "hosted_zone_id" {
   default     = ""
 }
 
+variable "subdomain_name" {
+  description = "Name of postgrest subdomain"
+  default     = ""
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = "map"
