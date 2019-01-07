@@ -174,12 +174,16 @@ module "acm_request_certificate" {
   subject_alternative_names         = ["*.${var.domain_name}"]
 }
 
-//resource "aws_eip" "postgrest_eip" {
-//  vpc      = true
-//  instance = "${aws_instance.default.id}"
-//  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
-//}
+resource "aws_lb_target_group_attachment" "default" {
+  count            = "${var.num_instances}"
+  target_group_arn = "${module.alb.default_target_group_arn}"
+  target_id        = "${element(aws_instance.default.id, count.index)}"
+  port             = 443
 
+  lifecycle {
+    ignore_changes = true
+  }
+}
 
 //resource "aws_route53_record" "www" {
 //  zone_id = "${var.hosted_zone_id}"
