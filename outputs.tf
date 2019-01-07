@@ -1,5 +1,5 @@
 output "instance_id" {
-  value       = "${aws_instance.default.id}"
+  value       = "${aws_instance.default.*.id}"
   description = "Instance ID"
 }
 
@@ -19,11 +19,11 @@ output "role" {
 }
 
 output "public_ip" {
-  value       = "${aws_instance.default.public_ip}"
+  value       = "${aws_instance.default.*.public_ip}"
   description = "Public IP of the instance (or EIP)"
 }
 
 output "private_ip" {
-  value       = "${aws_instance.default.private_ip}"
+  value       = "${aws_instance.default.*.private_ip}"
   description = "Private IP of the instance"
 }
