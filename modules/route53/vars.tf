@@ -9,10 +9,10 @@ variable "validation_method" {
   default     = "DNS"
 }
 
-variable "proces_domain_validation_options" {
-  description = "Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation"
+variable "process_domain_validation_options" {
   type        = "string"
   default     = "true"
+  description = "Flag to enable/disable processing of the record to add to the DNS zone to complete certificate validation"
 }
 
 variable "ttl" {
