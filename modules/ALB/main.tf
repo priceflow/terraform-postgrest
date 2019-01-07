@@ -56,8 +56,8 @@ module "access_logs" {
 }
 
 resource "aws_lb" "default" {
-  name                             = "${module.default_label.id}"
-  tags                             = "${module.default_label.tags}"
+  name                             = "${var.name}"
+  tags                             = "${var.tags}"
   internal                         = "${var.internal}"
   load_balancer_type               = "application"
   security_groups                  = ["${compact(concat(var.security_group_ids, list(aws_security_group.default.id)))}"]

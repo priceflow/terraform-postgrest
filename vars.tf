@@ -59,6 +59,11 @@ variable "domain_name" {
   default     = ""
 }
 
+variable "stage" {
+  description = "prod/stage/test"
+  default     = ""
+}
+
 variable "num_instances" {
   description = "Number of postgrest instances to create"
   type        = "string"

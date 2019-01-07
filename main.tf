@@ -153,11 +153,18 @@ resource "aws_instance" "default" {
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
-//resource "aws_eip" "postgrest_eip" {
-//  vpc      = true
-//  instance = "${aws_instance.default.id}"
-//  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
-//}
+module "alb" {
+  source    = "./modules/ALB"
+  namespace = "priceflow"
+  name      = "postgrest"
+  stage     = "${var.stage}"
+
+  vpc_id          = "${data.terraform_remote_state.vpc.id}"
+  ip_address_type = "ipv4"
+
+  subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  access_logs_region = "us-west-2"
+}
 
 module "acm_request_certificate" {
   source                            = "./modules/route53"
@@ -166,6 +173,13 @@ module "acm_request_certificate" {
   ttl                               = "300"
   subject_alternative_names         = ["*.${var.domain_name}"]
 }
+
+//resource "aws_eip" "postgrest_eip" {
+//  vpc      = true
+//  instance = "${aws_instance.default.id}"
+//  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
+//}
+
 
 //resource "aws_route53_record" "www" {
 //  zone_id = "${var.hosted_zone_id}"

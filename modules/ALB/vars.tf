@@ -41,6 +41,12 @@ variable "tags" {
   }
 }
 
+variable "security_group_ids" {
+  type        = "list"
+  default     = []
+  description = "A list of additional security group IDs to allow access to ALB"
+}
+
 variable "internal" {
   type        = "string"
   default     = "false"
