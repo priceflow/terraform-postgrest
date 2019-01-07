@@ -153,11 +153,11 @@ resource "aws_instance" "default" {
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
-resource "aws_eip" "postgrest_eip" {
-  vpc      = true
-  instance = "${aws_instance.default.id}"
-  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
-}
+//resource "aws_eip" "postgrest_eip" {
+//  vpc      = true
+//  instance = "${aws_instance.default.id}"
+//  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
+//}
 
 module "acm_request_certificate" {
   source                            = "./modules/route53"
@@ -167,10 +167,10 @@ module "acm_request_certificate" {
   subject_alternative_names         = ["*.${var.domain_name}"]
 }
 
-resource "aws_route53_record" "www" {
-  zone_id = "${var.hosted_zone_id}"
-  name    = "postgrest.${var.domain_name}"
-  type    = "A"
-  ttl     = "300"
-  records = ["${aws_eip.postgrest_eip.public_ip}"]
-}
+//resource "aws_route53_record" "www" {
+//  zone_id = "${var.hosted_zone_id}"
+//  name    = "postgrest.${var.domain_name}"
+//  type    = "A"
+//  ttl     = "300"
+//  records = ["${aws_eip.postgrest_eip.public_ip}"]
+//}
