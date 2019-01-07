@@ -151,7 +151,7 @@ resource "aws_eip" "postgrest_eip" {
   tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
