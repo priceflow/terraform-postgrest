@@ -148,6 +148,7 @@ resource "aws_instance" "default" {
 resource "aws_eip" "postgrest_eip" {
   vpc      = true
   instance = "${aws_instance.default.id}"
+  tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 
   lifecycle {
     prevent_destroy = true
