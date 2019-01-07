@@ -22,8 +22,11 @@ variable "ttl" {
 }
 
 variable "tags" {
-  type    = "map"
-  default = {}
+  type = "map"
+
+  default = {
+    Name = ""
+  }
 }
 
 variable "subject_alternative_names" {
