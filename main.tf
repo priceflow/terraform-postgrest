@@ -159,7 +159,7 @@ module "alb" {
   name      = "postgrest"
   stage     = "${var.stage}"
 
-  vpc_id             = "${data.terraform_remote_state.vpc.id}"
+  vpc_id             = "${data.terraform_remote_state.vpc.vpc_id}"
   subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
   ip_address_type    = "ipv4"
   access_logs_region = "us-west-2"
