@@ -150,7 +150,7 @@ resource "aws_instance" "default" {
   associate_public_ip_address = "true"
   key_name                    = "${var.key_name}"
   subnet_id                   = "${data.terraform_remote_state.vpc.public_subnets[0]}"
-  tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
+  tags                        = "${merge(map("Name", format("%s", var.name)), var.tags, "-", count.index)}"
 }
 
 //resource "aws_eip" "postgrest_eip" {
