@@ -82,7 +82,7 @@ resource "aws_iam_role_policy_attachment" "secrets" {
 resource "aws_security_group" "default" {
   name        = "${var.name}"
   vpc_id      = "${data.terraform_remote_state.vpc.vpc_id}"
-  description = "Bastion security group (only SSH inbound access is allowed)"
+  description = "Security group: open 22, 80, 8080, 443"
 
   ingress {
     protocol  = "tcp"
