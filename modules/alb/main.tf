@@ -61,7 +61,7 @@ resource "aws_lb" "default" {
   internal                         = "${var.internal}"
   load_balancer_type               = "application"
   security_groups                  = ["${compact(concat(var.security_group_ids, list(aws_security_group.default.id)))}"]
-  subnets                          = ["${data.terraform_remote_state.vpc.}"]
+  subnets                          = ["${data.terraform_remote_state.vpc.public_subnets}"]
   enable_cross_zone_load_balancing = "${var.cross_zone_load_balancing_enabled}"
   enable_http2                     = "${var.http2_enabled}"
   idle_timeout                     = "${var.idle_timeout}"

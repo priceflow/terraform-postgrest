@@ -154,15 +154,13 @@ resource "aws_instance" "default" {
 }
 
 module "alb" {
-  source    = "./modules/ALB"
+  source    = "./modules/alb"
   namespace = "priceflow"
   name      = "postgrest"
   stage     = "${var.stage}"
 
-  vpc_id          = "${data.terraform_remote_state.vpc.id}"
-  ip_address_type = "ipv4"
-
-  subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  vpc_id             = "${data.terraform_remote_state.vpc.id}"
+  ip_address_type    = "ipv4"
   access_logs_region = "us-west-2"
 }
 
