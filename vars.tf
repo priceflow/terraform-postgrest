@@ -49,6 +49,11 @@ variable "allowed_cidr_blocks" {
   ]
 }
 
+variable "hosted_zone_id" {
+  description = "ID of the hosted zone to contain this record"
+  default     = ""
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = "map"
