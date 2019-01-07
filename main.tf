@@ -149,14 +149,18 @@ resource "aws_eip" "postgrest_eip" {
   vpc      = true
   instance = "${aws_instance.default.id}"
   tags     = "${merge(map("Name", format("%s", var.name)), var.tags)}"
+}
 
-  lifecycle {
-    prevent_destroy = false
-  }
+module "route53" {
+  source                            = "./modules/route53"
+  domain_name                       = "${var.domain_name}"
+  process_domain_validation_options = "true"
+  ttl                               = "300"
+  subject_alternative_names         = ["postgrest.${var.domain_name}"]
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "${var.hosted_zone_id}"
+  zone_id = "${module.route53.hosted_zone_id}"
   name    = "${var.subdomain_name}"
   type    = "A"
   ttl     = "300"

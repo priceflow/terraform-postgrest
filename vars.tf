@@ -54,6 +54,11 @@ variable "hosted_zone_id" {
   default     = ""
 }
 
+variable "domain_name" {
+  description = "Name of postgrest subdomain"
+  default     = ""
+}
+
 variable "subdomain_name" {
   description = "Name of postgrest subdomain"
   default     = ""
