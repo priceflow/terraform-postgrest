@@ -14,6 +14,17 @@ resource "aws_security_group_rule" "egress" {
   security_group_id = "${aws_security_group.default.id}"
 }
 
+resource "aws_security_group_rule" "http_ingress" {
+  count             = "${var.http_enabled == "true" ? 1 : 0}"
+  type              = "ingress"
+  from_port         = "${var.http_port}"
+  to_port           = "${var.http_port}"
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.http_ingress_cidr_blocks}"]
+  prefix_list_ids   = ["${var.http_ingress_prefix_list_ids}"]
+  security_group_id = "${aws_security_group.default.id}"
+}
+
 resource "aws_security_group_rule" "https_ingress" {
   count             = "${var.https_enabled == "true" ? 1 : 0}"
   type              = "ingress"
