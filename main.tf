@@ -149,7 +149,7 @@ resource "aws_instance" "default" {
   iam_instance_profile        = "${aws_iam_instance_profile.default.name}"
   associate_public_ip_address = "true"
   key_name                    = "${var.key_name}"
-  subnet_id                   = "${data.terraform_remote_state.vpc.public_subnets}"
+  subnet_id                   = "${element(data.terraform_remote_state.vpc.public_subnets, count.index)}"
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
