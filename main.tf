@@ -176,7 +176,7 @@ module "acm_request_certificate" {
 resource "aws_lb_target_group_attachment" "default" {
   count            = "${var.num_instances}"
   target_group_arn = "${module.alb.default_target_group_arn}"
-  target_id        = "${element(aws_instance.default.*.private_ip, count.index)}"
+  target_id        = "${element(aws_instance.default.*.id, count.index)}"
   port             = 443
 
   lifecycle {
