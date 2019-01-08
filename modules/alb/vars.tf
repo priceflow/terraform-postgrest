@@ -1,23 +1,6 @@
-variable "namespace" {
-  description = "Namespace, which could be your organization name, e.g. `cp` or `cloudposse`"
-  type        = "string"
-}
-
 variable "stage" {
   description = "Stage, e.g. `prod`, `staging`, `dev`, or `test`"
   type        = "string"
-}
-
-variable "delimiter" {
-  description = "Delimiter to be used between `namespace`, `name`, `stage` and `attributes`"
-  type        = "string"
-  default     = "-"
-}
-
-variable "attributes" {
-  description = "Additional attributes, e.g. `1`"
-  type        = "list"
-  default     = []
 }
 
 variable "name" {

@@ -65,20 +65,10 @@ resource "aws_lb" "default" {
   }
 }
 
-module "default_target_group_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.6"
-  attributes = "${concat(var.attributes, list("default"))}"
-  delimiter  = "${var.delimiter}"
-  name       = "${var.name}"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  tags       = "${var.tags}"
-}
-
 resource "aws_lb_target_group" "default" {
-  name                 = "${module.default_target_group_label.id}"
-  port                 = "80"
-  protocol             = "HTTP"
+  name                 = "${var.name}"
+  port                 = "443"
+  protocol             = "HTTPS"
   vpc_id               = "${var.vpc_id}"
   target_type          = "ip"
   deregistration_delay = "${var.deregistration_delay}"

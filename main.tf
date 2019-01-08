@@ -149,7 +149,7 @@ resource "aws_instance" "default" {
   iam_instance_profile        = "${aws_iam_instance_profile.default.name}"
   associate_public_ip_address = "true"
   key_name                    = "${var.key_name}"
-  subnet_id                   = "${data.terraform_remote_state.vpc.public_subnets[0]}"
+  subnet_id                   = "${data.terraform_remote_state.vpc.public_subnets}"
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
@@ -192,4 +192,3 @@ resource "aws_route53_record" "www" {
   ttl     = "300"
   records = ["${module.alb.alb_dns_name}"]
 }
-
