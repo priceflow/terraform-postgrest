@@ -154,9 +154,9 @@ resource "aws_instance" "default" {
 }
 
 module "alb" {
-  source    = "./modules/alb"
-  name      = "postgrest"
-  stage     = "${var.stage}"
+  source = "./modules/alb"
+  name   = "postgrest"
+  stage  = "${var.stage}"
 
   vpc_id             = "${data.terraform_remote_state.vpc.vpc_id}"
   subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
