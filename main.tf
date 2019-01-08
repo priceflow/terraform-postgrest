@@ -177,7 +177,7 @@ resource "aws_lb_target_group_attachment" "default" {
   count            = "${var.num_instances}"
   target_group_arn = "${module.alb.default_target_group_arn}"
   target_id        = "${element(aws_instance.default.*.id, count.index)}"
-  port             = 443
+  port             = 8080
 
   lifecycle {
     ignore_changes = true
