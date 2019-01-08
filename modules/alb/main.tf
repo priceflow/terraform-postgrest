@@ -14,17 +14,6 @@ resource "aws_security_group_rule" "egress" {
   security_group_id = "${aws_security_group.default.id}"
 }
 
-resource "aws_security_group_rule" "http_ingress" {
-  count             = "${var.http_enabled == "true" ? 1 : 0}"
-  type              = "ingress"
-  from_port         = "${var.http_port}"
-  to_port           = "${var.http_port}"
-  protocol          = "tcp"
-  cidr_blocks       = ["${var.http_ingress_cidr_blocks}"]
-  prefix_list_ids   = ["${var.http_ingress_prefix_list_ids}"]
-  security_group_id = "${aws_security_group.default.id}"
-}
-
 resource "aws_security_group_rule" "https_ingress" {
   count             = "${var.https_enabled == "true" ? 1 : 0}"
   type              = "ingress"
@@ -67,10 +56,10 @@ resource "aws_lb" "default" {
 
 resource "aws_lb_target_group" "default" {
   name                 = "${var.name}"
-  port                 = "80"
+  port                 = "8080"
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
-  target_type          = "ip"
+  target_type          = "instance"
   deregistration_delay = "${var.deregistration_delay}"
 
   health_check {
@@ -88,14 +77,19 @@ resource "aws_lb_target_group" "default" {
 }
 
 resource "aws_lb_listener" "http" {
-  count             = "${var.http_enabled == "true" ? 1 : 0}"
+  count             = "${var.https_enabled == "true" ? 1 : 0}"
   load_balancer_arn = "${aws_lb.default.arn}"
-  port              = "${var.http_port}"
+  port              = "80"
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_lb_target_group.default.arn}"
-    type             = "forward"
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
 
