@@ -155,7 +155,6 @@ resource "aws_instance" "default" {
 
 module "alb" {
   source    = "./modules/alb"
-  namespace = "priceflow"
   name      = "postgrest"
   stage     = "${var.stage}"
 
