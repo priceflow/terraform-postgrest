@@ -68,7 +68,7 @@ resource "aws_lb" "default" {
 resource "aws_lb_target_group" "default" {
   name                 = "${var.name}"
   port                 = "8080"
-  protocol             = "HTTPS"
+  protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
   target_type          = "instance"
   deregistration_delay = "${var.deregistration_delay}"
