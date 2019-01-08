@@ -74,7 +74,7 @@ resource "aws_lb_target_group" "default" {
   deregistration_delay = "${var.deregistration_delay}"
 
   health_check {
-    path                = "${var.health_check_path}"
+    path                = "/rest/"
     timeout             = "${var.health_check_timeout}"
     healthy_threshold   = "${var.health_check_healthy_threshold}"
     unhealthy_threshold = "${var.health_check_unhealthy_threshold}"
