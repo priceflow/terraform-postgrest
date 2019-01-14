@@ -37,12 +37,13 @@ resource "aws_security_group_rule" "https_ingress" {
 }
 
 module "access_logs" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-lb-s3-bucket.git?ref=tags/0.1.0"
-  namespace = "priceflow"
-  name      = "${var.name}"
-  stage     = "${var.stage}"
-  tags      = "${var.tags}"
-  region    = "us-west-2"
+  source        = "git::https://github.com/cloudposse/terraform-aws-lb-s3-bucket.git?ref=tags/0.1.0"
+  namespace     = "priceflow"
+  name          = "${var.name}"
+  stage         = "${var.stage}"
+  tags          = "${var.tags}"
+  force_destroy = true
+  region        = "us-west-2"
 }
 
 resource "aws_lb" "default" {

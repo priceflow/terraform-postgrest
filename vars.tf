@@ -1,7 +1,7 @@
 variable "remote_bucket" {
   description = "s3 bucket for remote state"
   type        = "string"
-  default     = "priceflow-staging-terraform-state"
+  default     = ""
 }
 
 variable "s3_path" {
