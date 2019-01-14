@@ -103,6 +103,10 @@ resource "aws_lb_listener" "http" {
       status_code = "HTTP_301"
     }
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_lb_listener" "https" {
@@ -117,5 +121,9 @@ resource "aws_lb_listener" "https" {
   default_action {
     target_group_arn = "${aws_lb_target_group.default.arn}"
     type             = "forward"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
