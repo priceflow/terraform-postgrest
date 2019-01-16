@@ -39,6 +39,7 @@ resource "aws_security_group_rule" "https_ingress" {
 module "access_logs" {
   source        = "git::https://github.com/cloudposse/terraform-aws-lb-s3-bucket.git?ref=tags/0.1.0"
   namespace     = "priceflow"
+  prefix        = ""
   name          = "${var.name}"
   stage         = "${var.stage}"
   tags          = "${var.tags}"
