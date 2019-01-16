@@ -67,8 +67,3 @@ output "bucket_arn" {
   description = "S3 bucket ARN"
   value       = "${module.access_logs.bucket_arn}"
 }
-
-output "bucket_prefix" {
-  description = "S3 bucket prefix"
-  value       = "${module.access_logs.prefix}"
-}
