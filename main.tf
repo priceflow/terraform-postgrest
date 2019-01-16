@@ -153,6 +153,14 @@ resource "aws_instance" "default" {
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
+module "acm_request_certificate" {
+  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
+  domain_name                       = "${var.domain_name}"
+  process_domain_validation_options = "true"
+  ttl                               = "300"
+  subject_alternative_names         = ["*.${var.domain_name}"]
+}
+
 module "alb" {
   source = "./modules/alb"
   name   = "postgrest"
@@ -163,14 +171,6 @@ module "alb" {
   certificate_arn    = "${module.acm_request_certificate.id}"
   ip_address_type    = "ipv4"
   access_logs_region = "us-west-2"
-}
-
-module "acm_request_certificate" {
-  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
-  domain_name                       = "${var.domain_name}"
-  process_domain_validation_options = "true"
-  ttl                               = "300"
-  subject_alternative_names         = ["*.${var.domain_name}"]
 }
 
 resource "aws_lb_target_group_attachment" "default" {
