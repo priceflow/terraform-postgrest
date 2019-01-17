@@ -48,22 +48,4 @@ output "listener_arns" {
   value       = "${compact(concat(aws_lb_listener.http.*.arn, aws_lb_listener.https.*.arn))}"
 }
 
-output "access_logs_bucket_id" {
-  description = "The S3 bucket ID for access logs"
-  value       = "${module.access_logs.bucket_id}"
-}
 
-output "bucket_domain_name" {
-  description = "S3 bucket domain name"
-  value       = "${module.access_logs.bucket_domain_name}"
-}
-
-output "bucket_id" {
-  description = "S3 bucket ID"
-  value       = "${module.access_logs.bucket_id}"
-}
-
-output "bucket_arn" {
-  description = "S3 bucket ARN"
-  value       = "${module.access_logs.bucket_arn}"
-}
