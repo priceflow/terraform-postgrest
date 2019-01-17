@@ -27,8 +27,3 @@ output "private_ip" {
   value       = "${aws_instance.default.*.private_ip}"
   description = "Private IP of the instance"
 }
-
-output "certificate_arn" {
-  description = "The ARN of the certificate"
-  value       = "${module.acm_request_certificate.id}"
-}
