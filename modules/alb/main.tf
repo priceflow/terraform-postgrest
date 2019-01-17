@@ -36,17 +36,6 @@ resource "aws_security_group_rule" "https_ingress" {
   security_group_id = "${aws_security_group.default.id}"
 }
 
-module "access_logs" {
-  source        = "git::https://github.com/cloudposse/terraform-aws-lb-s3-bucket.git?ref=tags/0.1.0"
-  namespace     = "priceflow"
-  prefix        = ""
-  name          = "${var.name}"
-  stage         = "${var.stage}"
-  tags          = "${var.tags}"
-  force_destroy = true
-  region        = "us-west-2"
-}
-
 resource "aws_lb" "default" {
   name                             = "${var.name}"
   tags                             = "${var.tags}"
@@ -59,12 +48,6 @@ resource "aws_lb" "default" {
   idle_timeout                     = "${var.idle_timeout}"
   ip_address_type                  = "${var.ip_address_type}"
   enable_deletion_protection       = "${var.deletion_protection_enabled}"
-
-  access_logs {
-    bucket  = "${module.access_logs.bucket_id}"
-    prefix  = "${var.access_logs_prefix}"
-    enabled = "${var.access_logs_enabled}"
-  }
 }
 
 resource "aws_lb_target_group" "default" {
