@@ -26,6 +26,16 @@ data "terraform_remote_state" "rds" {
   }
 }
 
+data "terraform_remote_state" "cert" {
+    backend = "s3"
+
+    config {
+    bucket = "${var.remote_bucket}"
+    key    = "rds/terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+
 data "template_file" "user_data" {
   template = "${file("${path.module}/user_data.sh")}"
 
@@ -153,14 +163,6 @@ resource "aws_instance" "default" {
   tags                        = "${merge(map("Name", format("%s", var.name)), var.tags)}"
 }
 
-module "acm_request_certificate" {
-  source                            = "git::git@github.com:priceflow/terraform-acm-certificate.git//?ref=v0.0.1"
-  domain_name                       = "${var.domain_name}"
-  process_domain_validation_options = "true"
-  ttl                               = "300"
-  subject_alternative_names         = ["*.${var.domain_name}"]
-}
-
 module "alb" {
   source = "./modules/alb"
   name   = "postgrest"
@@ -168,7 +170,7 @@ module "alb" {
 
   vpc_id             = "${data.terraform_remote_state.vpc.vpc_id}"
   subnet_ids         = ["${data.terraform_remote_state.vpc.public_subnets}"]
-  certificate_arn    = "${module.acm_request_certificate.id}"
+  certificate_arn    = "${data.terraform_remote_state.cert.arn}"
   ip_address_type    = "ipv4"
   access_logs_region = "us-west-2"
 }
