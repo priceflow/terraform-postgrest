@@ -54,11 +54,6 @@ variable "hosted_zone_id" {
   default     = ""
 }
 
-variable "domain_name" {
-  description = "Name of postgrest top domain"
-  default     = ""
-}
-
 variable "stage" {
   description = "prod/stage/test"
   default     = ""
